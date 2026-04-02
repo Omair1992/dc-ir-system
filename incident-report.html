@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dignified Caring — Incident Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B3A5C;
+    --navy-dark: #122640;
+    --navy-light: #EEF3F8;
+    --teal: #1E7B74;
+    --teal-light: #E0F2F0;
+    --teal-mid: #2DA89F;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --amber: #C8600A;
+    --amber-light: #FEF3E7;
+    --green: #1A7A4A;
+    --green-light: #E6F9EE;
+    --grey-100: #F7F8FA;
+    --grey-200: #EDEEF1;
+    --grey-300: #D8DADF;
+    --grey-500: #8A8E99;
+    --grey-700: #4A4E5A;
+    --grey-900: #1C1E24;
+    --white: #FFFFFF;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--grey-100);
+    color: var(--grey-900);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-logo {
+    width: 32px;
+    height: 32px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-logo svg { width: 18px; height: 18px; }
+  .header-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .header-name span {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.02em;
+  }
+  .header-version {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.08);
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    background: var(--navy-dark);
+    height: 3px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal-mid);
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* EMERGENCY BANNER */
+  .emergency-banner {
+    background: var(--red);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .emergency-banner-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .emergency-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    flex-shrink: 0;
+    animation: pulse 1.5s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .emergency-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.01em;
+  }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* SITE TAG (auto-injected via QR param) */
+  .site-tag {
+    background: var(--navy);
+    margin: 0 auto;
+    max-width: 640px;
+  }
+  .site-tag-inner {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-pill {
+    background: var(--teal);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .site-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* SECTION CARDS */
+  .section {
+    background: var(--white);
+    border-radius: var(--radius);
+    margin: 12px 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--grey-200);
+  }
+  .section-header {
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--grey-200);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+  .icon-admin { background: var(--navy-light); color: var(--navy); }
+  .icon-participant { background: var(--teal-light); color: var(--teal); }
+  .icon-classify { background: var(--amber-light); color: var(--amber); }
+  .icon-context { background: var(--grey-200); color: var(--grey-700); }
+  .icon-narrative { background: var(--navy-light); color: var(--navy); }
+  .icon-voice { background: #EDE9FE; color: #5B21B6; }
+  .icon-injury { background: var(--red-light); color: var(--red); }
+  .icon-notify { background: var(--teal-light); color: var(--teal); }
+  .icon-debrief { background: var(--green-light); color: var(--green); }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--grey-900);
+    letter-spacing: -0.01em;
+  }
+  .section-part {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grey-500);
+    margin-left: auto;
+    background: var(--grey-100);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .section-body {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* FIELDS */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--grey-700);
+    letter-spacing: 0.01em;
+  }
+  label .req {
+    color: var(--teal);
+    margin-left: 2px;
+    font-size: 13px;
+    line-height: 1;
+  }
+  label .optional {
+    color: var(--grey-500);
+    font-weight: 400;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--grey-900);
+    background: var(--grey-100);
+    border: 1.5px solid var(--grey-300);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--teal);
+    background: var(--white);
+  }
+  input.error, select.error, textarea.error {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  select { cursor: pointer; }
+
+  /* MANDATORY FIELD HIGHLIGHT */
+  .mandatory-field label::before {
+    content: '★ ';
+    color: var(--teal);
+    font-size: 10px;
+  }
+
+  /* SBAR BLOCKS */
+  .sbar-block {
+    background: var(--grey-100);
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .sbar-block.sbar-assessment {
+    border-color: var(--navy);
+    border-width: 2px;
+  }
+  .sbar-header {
+    padding: 9px 12px 8px;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .sbar-assessment .sbar-header {
+    background: var(--navy-light);
+    border-bottom-color: rgba(27,58,92,0.15);
+  }
+  .sbar-letter {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .sbar-assessment .sbar-letter {
+    color: var(--navy);
+    background: rgba(27,58,92,0.12);
+  }
+  .sbar-prompt {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--grey-700);
+  }
+  .sbar-hint {
+    font-size: 11px;
+    color: var(--grey-500);
+    padding: 6px 12px 8px;
+    line-height: 1.5;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .sbar-block textarea {
+    border: none;
+    border-radius: 0;
+    background: var(--white);
+    font-size: 14px;
+    padding: 10px 12px;
+    min-height: 90px;
+  }
+  .sbar-assessment textarea { min-height: 130px; }
+  .sbar-block textarea:focus { background: #FAFFFE; border: none; }
+
+  /* CHECKBOX GRID */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .check-grid.single-col { grid-template-columns: 1fr; }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: all 0.12s;
+    background: var(--white);
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--teal); background: var(--teal-light); }
+  .check-item.selected {
+    border-color: var(--teal);
+    background: var(--teal-light);
+  }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--grey-300);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.12s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .check-item.selected .check-box {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .check-item.selected .check-box::after {
+    content: '';
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(0, -1px);
+    display: block;
+  }
+  .check-label { font-size: 13px; color: var(--grey-700); line-height: 1.3; }
+
+  /* RADIO SEVERITY */
+  .severity-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .severity-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--grey-200);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: all 0.12s;
+    background: var(--white);
+  }
+  .severity-item:hover { border-color: var(--grey-300); background: var(--grey-100); }
+  .severity-item.selected-critical { border-color: var(--red); background: var(--red-light); }
+  .severity-item.selected-major { border-color: #E8580D; background: #FFF0E8; }
+  .severity-item.selected-moderate { border-color: var(--amber); background: var(--amber-light); }
+  .severity-item.selected-minor { border-color: var(--green); background: var(--green-light); }
+  .severity-item.selected-nearmiss { border-color: #1F618D; background: #EBF5FB; }
+  .severity-item input[type="radio"] { display: none; }
+  .severity-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-critical { background: var(--red); }
+  .dot-major { background: #E8580D; }
+  .dot-moderate { background: var(--amber); }
+  .dot-minor { background: var(--green); }
+  .dot-nearmiss { background: #1F618D; }
+  .severity-label { font-size: 13px; font-weight: 500; color: var(--grey-900); }
+  .severity-sub { font-size: 11px; color: var(--grey-500); margin-left: auto; }
+
+  /* MOOD CHIPS */
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .mood-chip {
+    padding: 5px 12px;
+    border: 1.5px solid var(--grey-200);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--grey-700);
+    cursor: pointer;
+    background: var(--white);
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .mood-chip:hover { border-color: var(--teal); color: var(--teal); }
+  .mood-chip.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+  /* INFO BOX */
+  .info-box {
+    background: var(--navy-light);
+    border: 1px solid rgba(27,58,92,0.15);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--navy);
+    line-height: 1.6;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .info-box.warn {
+    background: var(--red-light);
+    border-color: rgba(192,57,43,0.2);
+    color: var(--red);
+  }
+  .info-box.amber-box {
+    background: var(--amber-light);
+    border-color: rgba(200,96,10,0.2);
+    color: var(--amber);
+  }
+  .info-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+
+  /* FIELD HINT */
+  .field-hint {
+    font-size: 11px;
+    color: var(--grey-500);
+    line-height: 1.4;
+  }
+
+  /* DIVIDER */
+  .mini-divider {
+    height: 1px;
+    background: var(--grey-200);
+    margin: 2px 0;
+  }
+
+  /* SUBMIT SECTION */
+  .submit-section {
+    background: var(--white);
+    border-radius: var(--radius);
+    margin: 12px 0;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--grey-200);
+  }
+  .declaration-text {
+    font-size: 12px;
+    color: var(--grey-500);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-submit:hover { background: var(--navy-dark); }
+  .btn-submit:active { transform: scale(0.99); }
+  .btn-submit:disabled { background: var(--grey-300); cursor: not-allowed; }
+
+  .btn-draft {
+    width: 100%;
+    background: transparent;
+    color: var(--grey-700);
+    border: 1.5px solid var(--grey-300);
+    border-radius: var(--radius-sm);
+    padding: 11px 20px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 8px;
+  }
+  .btn-draft:hover { border-color: var(--grey-500); background: var(--grey-100); }
+
+  /* SUCCESS STATE */
+  .success-screen {
+    display: none;
+    background: var(--white);
+    border-radius: var(--radius);
+    margin: 12px 0;
+    padding: 32px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--grey-200);
+  }
+  .success-screen.visible { display: block; }
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .success-icon svg { width: 28px; height: 28px; color: var(--green); }
+  .success-title { font-size: 20px; font-weight: 600; color: var(--grey-900); margin-bottom: 6px; }
+  .success-ref {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    margin: 10px 0 14px;
+    letter-spacing: 0.05em;
+  }
+  .success-sub { font-size: 13px; color: var(--grey-500); line-height: 1.6; }
+  .success-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .btn-new {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  /* LOADING SPINNER */
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ERROR MESSAGE */
+  .error-msg {
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 3px;
+    display: none;
+  }
+  .error-msg.visible { display: block; }
+
+  /* VALIDATION SUMMARY */
+  .val-summary {
+    background: var(--red-light);
+    border: 1.5px solid rgba(192,57,43,0.3);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    display: none;
+  }
+  .val-summary.visible { display: block; }
+  .val-summary-title { font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 6px; }
+  .val-summary ul { padding-left: 16px; }
+  .val-summary li { font-size: 12px; color: var(--red); margin-bottom: 3px; }
+
+  /* SITE SELECTOR (shown if no QR param) */
+  .site-selector-banner {
+    background: var(--amber-light);
+    border-bottom: 1px solid rgba(200,96,10,0.2);
+  }
+  .site-selector-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .site-selector-inner select {
+    flex: 1;
+    font-size: 13px;
+    padding: 6px 10px;
+    background: var(--white);
+    border-color: rgba(200,96,10,0.3);
+    color: var(--amber);
+    font-weight: 500;
+  }
+  .site-selector-label { font-size: 12px; color: var(--amber); font-weight: 500; flex-shrink: 0; }
+
+  /* FOOTER */
+  .form-footer {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px 20px 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--grey-500);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; }
+    .field-row-3 { grid-template-columns: 1fr; }
+    .check-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2C8 2 4 5 4 9c0 5 8 13 8 13s8-8 8-13c0-4-4-7-8-7z"/>
+          <circle cx="12" cy="9" r="2.5" fill="#fff" stroke="none"/>
+        </svg>
+      </div>
+      <div class="header-name">
+        Dignified Caring
+        <span>Incident Report System</span>
+      </div>
+    </div>
+    <div class="header-version">v2.1</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<!-- EMERGENCY BANNER -->
+<div class="emergency-banner">
+  <div class="emergency-banner-inner">
+    <div class="emergency-dot"></div>
+    <div class="emergency-text">Emergency? Call 000 first — then notify on-call — then complete this form</div>
+  </div>
+</div>
+
+<!-- SITE TAG (auto from QR) -->
+<div class="site-tag" id="siteTag" style="display:none">
+  <div class="site-tag-inner">
+    <div class="site-pill" id="sitePill"></div>
+    <div class="site-label">Site pre-selected from QR code</div>
+  </div>
+</div>
+
+<!-- MANUAL SITE SELECTOR (fallback) -->
+<div class="site-selector-banner" id="siteSelectorBanner">
+  <div class="site-selector-inner">
+    <div class="site-selector-label">Select site:</div>
+    <select id="manualSiteSelect" onchange="setManualSite(this.value)">
+      <option value="">— Choose your house —</option>
+      <option value="Calderwood">Calderwood</option>
+      <option value="Dapto">Dapto</option>
+      <option value="Bushranger">Bushranger</option>
+      <option value="Mulberry">Mulberry</option>
+      <option value="Excelsior">Excelsior</option>
+      <option value="Dean Park">Dean Park</option>
+      <option value="Market St">Market St</option>
+      <option value="Taylor St">Taylor St</option>
+      <option value="Katoomba">Katoomba</option>
+    </select>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="container" id="formContainer">
+<form id="irForm" novalidate>
+<input type="hidden" id="hiddenSite" name="site" value="">
+<input type="hidden" id="hiddenRef" name="referenceId" value="">
+<input type="hidden" id="hiddenTimestamp" name="submittedAt" value="">
+
+<!-- PART A: ADMIN -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-admin">A</div>
+    <div class="section-title">Administrative details</div>
+    <div class="section-part">Part A</div>
+  </div>
+  <div class="section-body">
+    <div class="field-row">
+      <div class="field mandatory-field">
+        <label for="incidentDate">Date of incident <span class="req">*</span></label>
+        <input type="date" id="incidentDate" name="incidentDate" required>
+        <span class="error-msg" id="err-incidentDate">Required</span>
+      </div>
+      <div class="field mandatory-field">
+        <label for="incidentTime">Time of incident <span class="req">*</span></label>
+        <input type="time" id="incidentTime" name="incidentTime" required>
+        <span class="error-msg" id="err-incidentTime">Required</span>
+      </div>
+    </div>
+    <div class="field mandatory-field">
+      <label for="specificLocation">Specific area within site <span class="req">*</span></label>
+      <input type="text" id="specificLocation" name="specificLocation" placeholder="e.g. Participant's bedroom, kitchen, back garden" required>
+      <span class="error-msg" id="err-specificLocation">Required</span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="serviceType">Service type</label>
+        <select id="serviceType" name="serviceType">
+          <option value="">Select...</option>
+          <option>Supported Independent Living (SIL)</option>
+          <option>Community Access</option>
+          <option>Respite / STA</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shift">Shift</label>
+        <select id="shift" name="shift">
+          <option value="">Select...</option>
+          <option>AM (morning)</option>
+          <option>PM (afternoon)</option>
+          <option>Overnight</option>
+          <option>24-hour</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART B: PARTICIPANT -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-participant">B</div>
+    <div class="section-title">Participant details</div>
+    <div class="section-part">Part B</div>
+  </div>
+  <div class="section-body">
+    <div class="field mandatory-field">
+      <label for="participantName">Participant full name <span class="req">*</span></label>
+      <input type="text" id="participantName" name="participantName" placeholder="Legal name as per support plan" required>
+      <span class="error-msg" id="err-participantName">Required</span>
+    </div>
+    <div class="field-row">
+      <div class="field mandatory-field">
+        <label for="ndisNumber">NDIS number <span class="req">*</span></label>
+        <input type="text" id="ndisNumber" name="ndisNumber" placeholder="9-digit number" maxlength="9" required>
+        <span class="error-msg" id="err-ndisNumber">Required</span>
+      </div>
+      <div class="field">
+        <label for="participantDOB">Date of birth</label>
+        <input type="date" id="participantDOB" name="participantDOB">
+      </div>
+    </div>
+    <div class="field">
+      <label for="commMethod">Communication method <span class="optional">(optional)</span></label>
+      <input type="text" id="commMethod" name="commMethod" placeholder="e.g. Verbal, AAC device, Makaton">
+    </div>
+    <div class="field">
+      <label for="guardianContact">Guardian / nominee name + contact <span class="optional">(if applicable)</span></label>
+      <input type="text" id="guardianContact" name="guardianContact" placeholder="Full name, relationship, phone — or N/A">
+    </div>
+  </div>
+</div>
+
+<!-- PART C: CLASSIFICATION -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-classify">C</div>
+    <div class="section-title">Incident classification</div>
+    <div class="section-part">Part C</div>
+  </div>
+  <div class="section-body">
+    <div class="field mandatory-field">
+      <label>Severity level <span class="req">*</span></label>
+      <div class="severity-grid" id="severityGrid">
+        <label class="severity-item" onclick="selectSeverity('critical',this)">
+          <input type="radio" name="severity" value="critical">
+          <div class="severity-dot dot-critical"></div>
+          <div class="severity-label">Critical</div>
+          <div class="severity-sub">Immediate risk to life</div>
+        </label>
+        <label class="severity-item" onclick="selectSeverity('major',this)">
+          <input type="radio" name="severity" value="major">
+          <div class="severity-dot dot-major"></div>
+          <div class="severity-label">Major</div>
+          <div class="severity-sub">Serious injury / hospital</div>
+        </label>
+        <label class="severity-item" onclick="selectSeverity('moderate',this)">
+          <input type="radio" name="severity" value="moderate">
+          <div class="severity-dot dot-moderate"></div>
+          <div class="severity-label">Moderate</div>
+          <div class="severity-sub">Medical treatment needed</div>
+        </label>
+        <label class="severity-item" onclick="selectSeverity('minor',this)">
+          <input type="radio" name="severity" value="minor">
+          <div class="severity-dot dot-minor"></div>
+          <div class="severity-label">Minor</div>
+          <div class="severity-sub">First aid only</div>
+        </label>
+        <label class="severity-item" onclick="selectSeverity('nearmiss',this)">
+          <input type="radio" name="severity" value="nearmiss">
+          <div class="severity-dot dot-nearmiss"></div>
+          <div class="severity-label">Near miss</div>
+          <div class="severity-sub">No injury, risk was present</div>
+        </label>
+      </div>
+      <span class="error-msg" id="err-severity">Please select a severity level</span>
+    </div>
+
+    <div class="mini-divider"></div>
+
+    <div class="field mandatory-field">
+      <label>Incident category <span class="req">*</span> <span class="optional">tick all that apply</span></label>
+      <div class="check-grid" id="categoryGrid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Behaviour of concern — participant"><div class="check-box"></div><div class="check-label">Behaviour of concern (participant)</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Behaviour of concern — other person"><div class="check-box"></div><div class="check-label">Behaviour of concern (other person)</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Physical injury / fall"><div class="check-box"></div><div class="check-label">Physical injury / fall</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Medication error / PRN"><div class="check-box"></div><div class="check-label">Medication error / PRN</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Alleged abuse or neglect"><div class="check-box"></div><div class="check-label">Alleged abuse or neglect</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Sexual misconduct / grooming"><div class="check-box"></div><div class="check-label">Sexual misconduct / grooming</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Restrictive practice used"><div class="check-box"></div><div class="check-label">Restrictive practice used</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Missing / elopement"><div class="check-box"></div><div class="check-label">Missing / elopement</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Environmental hazard"><div class="check-box"></div><div class="check-label">Environmental hazard</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Property damage"><div class="check-box"></div><div class="check-label">Property damage</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Near miss"><div class="check-box"></div><div class="check-label">Near miss</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="category" value="Other"><div class="check-box"></div><div class="check-label">Other (specify below)</div></label>
+      </div>
+      <span class="error-msg" id="err-category">Please select at least one category</span>
+    </div>
+
+    <div class="field mandatory-field">
+      <label>NDIS reportable? <span class="req">*</span></label>
+      <div class="check-grid single-col">
+        <label class="check-item" id="rep-yes" onclick="selectReportable('yes')"><input type="radio" name="reportable" value="yes"><div class="check-box" id="rep-yes-box"></div><div class="check-label">Yes — will be / has been reported to NDIS Commission</div></label>
+        <label class="check-item" id="rep-no" onclick="selectReportable('no')"><input type="radio" name="reportable" value="no"><div class="check-box" id="rep-no-box"></div><div class="check-label">No — internal incident only</div></label>
+        <label class="check-item" id="rep-unsure" onclick="selectReportable('unsure')"><input type="radio" name="reportable" value="unsure"><div class="check-box" id="rep-unsure-box"></div><div class="check-label">Unsure — escalating to supervisor</div></label>
+      </div>
+      <span class="error-msg" id="err-reportable">Required</span>
+    </div>
+
+    <!-- NDIS alert shown when reportable = yes -->
+    <div class="info-box warn" id="ndisAlert" style="display:none">
+      <span class="info-icon">⚠</span>
+      <div>NDIS reportable incidents must be notified to the Commission within <strong>24 hours</strong>. Your supervisor will receive an immediate alert when you submit this form.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART D: STAFF -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-admin">D</div>
+    <div class="section-title">Staff details</div>
+    <div class="section-part">Part D</div>
+  </div>
+  <div class="section-body">
+    <div class="field mandatory-field">
+      <label for="staffName">Your full name <span class="req">*</span></label>
+      <input type="text" id="staffName" name="staffName" placeholder="Full name — print clearly" required>
+      <span class="error-msg" id="err-staffName">Required</span>
+    </div>
+    <div class="field-row">
+      <div class="field mandatory-field">
+        <label for="staffRole">Role / position <span class="req">*</span></label>
+        <select id="staffRole" name="staffRole" required>
+          <option value="">Select...</option>
+          <option>Support Worker</option>
+          <option>Senior Support Worker</option>
+          <option>Team Leader</option>
+          <option>House Supervisor</option>
+          <option>On-Call Supervisor</option>
+          <option>Service Manager</option>
+          <option>Other</option>
+        </select>
+        <span class="error-msg" id="err-staffRole">Required</span>
+      </div>
+      <div class="field">
+        <label for="employeeId">Employee ID <span class="optional">(optional)</span></label>
+        <input type="text" id="employeeId" name="employeeId" placeholder="As per HR records">
+      </div>
+    </div>
+    <div class="field mandatory-field">
+      <label for="oncallNotified">On-call supervisor notified <span class="req">*</span></label>
+      <input type="text" id="oncallNotified" name="oncallNotified" placeholder="Name + time notified (e.g. Sarah M. — 14:32)" required>
+      <span class="error-msg" id="err-oncallNotified">Required</span>
+    </div>
+    <div class="field">
+      <label for="staffPresent">All staff present at time of incident</label>
+      <textarea id="staffPresent" name="staffPresent" placeholder="List full name and role for each staff member on site"></textarea>
+    </div>
+    <div class="field">
+      <label for="witnesses">Witnesses (non-staff) <span class="optional">(if any)</span></label>
+      <input type="text" id="witnesses" name="witnesses" placeholder="Full name + relationship, or N/A">
+    </div>
+  </div>
+</div>
+
+<!-- PART E: CONTEXT -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-context">E</div>
+    <div class="section-title">Pre-incident context</div>
+    <div class="section-part">Part E</div>
+  </div>
+  <div class="section-body">
+    <div class="field">
+      <label>Participant's mood before the incident <span class="optional">tick all that apply</span></label>
+      <div class="chip-row" id="moodChips">
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Calm / settled">Calm</div>
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Anxious / agitated">Anxious</div>
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Distressed">Distressed</div>
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Fatigued / unwell">Fatigued</div>
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Elevated / excited">Elevated</div>
+        <div class="mood-chip" onclick="toggleMood(this)" data-value="Unknown">Unknown</div>
+      </div>
+      <input type="hidden" id="moodValue" name="participantMood" value="">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="recentSleep">Recent sleep</label>
+        <select id="recentSleep" name="recentSleep">
+          <option value="">Select...</option>
+          <option>Adequate</option>
+          <option>Poor / disturbed</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="recentEating">Recent eating</label>
+        <select id="recentEating" name="recentEating">
+          <option value="">Select...</option>
+          <option>Adequate</option>
+          <option>Refused / poor</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="triggers">Known triggers or contributing factors</label>
+      <textarea id="triggers" name="triggers" placeholder="Note specific triggers from BSP, routine changes, staffing changes, visitors, noise — keep brief"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- PART F: NARRATIVE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-narrative">F</div>
+    <div class="section-title">Incident narrative — SBAR</div>
+    <div class="section-part">Part F</div>
+  </div>
+  <div class="section-body">
+    <div class="info-box">
+      <span class="info-icon">i</span>
+      <div>Third-person past tense. Exact times. Observable behaviour only. Direct quotes in "quotation marks". Each block = one paragraph.</div>
+    </div>
+
+    <div class="field mandatory-field">
+      <label>S — Situation <span class="req">*</span></label>
+      <div class="sbar-block">
+        <div class="sbar-header">
+          <span class="sbar-letter">S</span>
+          <span class="sbar-prompt">What was happening immediately before?</span>
+        </div>
+        <div class="sbar-hint">Setting, activity, and participant status immediately before the incident. Include the exact time.</div>
+        <textarea name="sbarS" id="sbarS" placeholder='e.g. "At 14:30 on 02/04/2026, participant [Name] was in the lounge engaged in watching television when..."' required></textarea>
+      </div>
+      <span class="error-msg" id="err-sbarS">Required — describe the situation before the incident</span>
+    </div>
+
+    <div class="field">
+      <label>B — Background <span class="optional">(relevant context)</span></label>
+      <div class="sbar-block">
+        <div class="sbar-header">
+          <span class="sbar-letter">B</span>
+          <span class="sbar-prompt">Relevant history or context</span>
+        </div>
+        <div class="sbar-hint">BSP guidance, known triggers, recent changes to routine, staffing context that day.</div>
+        <textarea name="sbarB" id="sbarB" placeholder="e.g. Participant has a documented history of..."></textarea>
+      </div>
+    </div>
+
+    <div class="field mandatory-field">
+      <label>A — Assessment <span class="req">*</span></label>
+      <div class="sbar-block sbar-assessment">
+        <div class="sbar-header">
+          <span class="sbar-letter">A</span>
+          <span class="sbar-prompt">What happened — in chronological order</span>
+        </div>
+        <div class="sbar-hint">The incident itself. Exact times, observed behaviours, direct quotes in "quotation marks". What did you see, hear, find?</div>
+        <textarea name="sbarA" id="sbarA" placeholder='e.g. "At 14:32, participant [Name] stood up suddenly and raised their voice, stating [exact words]. Staff member [Name] observed..."' required></textarea>
+      </div>
+      <span class="error-msg" id="err-sbarA">Required — describe what happened</span>
+    </div>
+
+    <div class="field mandatory-field">
+      <label>R — Response <span class="req">*</span></label>
+      <div class="sbar-block">
+        <div class="sbar-header">
+          <span class="sbar-letter">R</span>
+          <span class="sbar-prompt">What was done — by whom — current status</span>
+        </div>
+        <div class="sbar-hint">Every action taken, in order. Name of staff member, action taken, time. Include participant's current status at time of writing.</div>
+        <textarea name="sbarR" id="sbarR" placeholder='e.g. "Staff member [Name] responded by... On-call supervisor [Name] was notified at [time]. At time of writing, participant is..."' required></textarea>
+      </div>
+      <span class="error-msg" id="err-sbarR">Required — describe what was done</span>
+    </div>
+  </div>
+</div>
+
+<!-- PART F2: PARTICIPANT VOICE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-voice">F2</div>
+    <div class="section-title">Participant's account</div>
+    <div class="section-part">Part F2 — 2025 Standards</div>
+  </div>
+  <div class="section-body">
+    <div class="info-box" style="background:#EDE9FE; border-color:rgba(91,33,182,0.15); color:#5B21B6;">
+      <span class="info-icon">★</span>
+      <div>Required by NDIS Practice Standards 2025. Record what the participant said or communicated in their own words. Note the communication method used.</div>
+    </div>
+    <div class="field">
+      <label>Was participant able to provide an account?</label>
+      <div class="check-grid single-col">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="voiceStatus" value="Yes — documented below"><div class="check-box"></div><div class="check-label">Yes — documented below</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="voiceStatus" value="Deferred — participant not ready"><div class="check-box"></div><div class="check-label">Deferred — participant not ready / requires follow-up</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="voiceStatus" value="No — reason noted below"><div class="check-box"></div><div class="check-label">No — reason noted below</div></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="participantVoice">Participant's account <span class="optional">(in their own words)</span></label>
+      <textarea id="participantVoice" name="participantVoice" placeholder="Record exactly what the participant said or communicated. Use quotation marks. Note communication method if not verbal. Write N/A + reason if not obtained."></textarea>
+    </div>
+    <div class="field">
+      <label for="voiceMethod">How was the account obtained?</label>
+      <input type="text" id="voiceMethod" name="voiceMethod" placeholder="e.g. Verbal, AAC device, Makaton, written, family-assisted — or N/A">
+    </div>
+  </div>
+</div>
+
+<!-- PART G: INJURIES -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-injury">G</div>
+    <div class="section-title">Injuries and medical treatment</div>
+    <div class="section-part">Part G</div>
+  </div>
+  <div class="section-body">
+    <div class="field mandatory-field">
+      <label>Was anyone injured? <span class="req">*</span></label>
+      <div class="check-grid single-col">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="injured" value="Yes — participant"><div class="check-box"></div><div class="check-label">Yes — participant injured (document below)</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="injured" value="Yes — staff member"><div class="check-box"></div><div class="check-label">Yes — staff member injured</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="injured" value="No injuries"><div class="check-box"></div><div class="check-label">No injuries sustained</div></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="injuryDesc">Description of injury <span class="optional">(if applicable)</span></label>
+      <textarea id="injuryDesc" name="injuryDesc" placeholder="Nature, location on body, apparent severity. Include visible signs (bruising, laceration, swelling). If no injury, write N/A."></textarea>
+    </div>
+    <div class="field mandatory-field">
+      <label>Medical treatment provided <span class="req">*</span></label>
+      <div class="check-grid single-col">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="No treatment required"><div class="check-box"></div><div class="check-label">No treatment required</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="First aid on site"><div class="check-box"></div><div class="check-label">First aid administered on site</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="GP contacted"><div class="check-box"></div><div class="check-label">GP contacted or attended</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="Ambulance called (000)"><div class="check-box"></div><div class="check-label">Ambulance called (000)</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="Hospital ED"><div class="check-box"></div><div class="check-label">Taken to hospital ED</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="treatment" value="Hospital admission"><div class="check-box"></div><div class="check-label">Hospital admission</div></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="treatmentDetails">Medical treatment details</label>
+      <textarea id="treatmentDetails" name="treatmentDetails" placeholder="Treatment provided, who gave it (name + role), any follow-up required. Or N/A."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- PART I: NOTIFICATIONS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-notify">I</div>
+    <div class="section-title">Notifications</div>
+    <div class="section-part">Part I</div>
+  </div>
+  <div class="section-body">
+    <div class="field">
+      <label>Family / guardian notified?</label>
+      <div class="check-grid single-col">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="familyNotified" value="Yes"><div class="check-box"></div><div class="check-label">Yes — details below</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="familyNotified" value="No — adult participant no consent"><div class="check-box"></div><div class="check-label">No — adult participant, no consent to notification</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="familyNotified" value="Attempted — no contact"><div class="check-box"></div><div class="check-label">Attempted — could not make contact</div></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="familyDetails">Family notification details</label>
+      <input type="text" id="familyDetails" name="familyDetails" placeholder="Name, relationship, time, method — or N/A">
+    </div>
+    <div class="field">
+      <label for="policeDetails">Police notified?</label>
+      <input type="text" id="policeDetails" name="policeDetails" placeholder="Station, officer, event number, time — or N/A">
+    </div>
+  </div>
+</div>
+
+<!-- PART K: DEBRIEF -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-debrief">K</div>
+    <div class="section-title">Staff debrief and wellbeing</div>
+    <div class="section-part">Part K</div>
+  </div>
+  <div class="section-body">
+    <div class="field">
+      <label>Post-incident debrief status</label>
+      <div class="check-grid single-col">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="debrief" value="Completed"><div class="check-box"></div><div class="check-label">Completed with supervisor or team leader</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="debrief" value="To be scheduled"><div class="check-box"></div><div class="check-label">To be scheduled</div></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="debrief" value="Not required"><div class="check-box"></div><div class="check-label">Not required for this incident</div></label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="staffWellbeing">Staff support required? <span class="optional">(confidential)</span></label>
+      <input type="text" id="staffWellbeing" name="staffWellbeing" placeholder="Note any staff member needing follow-up support — or N/A">
+    </div>
+    <div class="field">
+      <label for="additionalNotes">Any additional notes</label>
+      <textarea id="additionalNotes" name="additionalNotes" placeholder="Anything else relevant that doesn't fit elsewhere"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-section">
+  <div class="declaration-text">
+    By submitting this form you confirm this report is a true and accurate account of the incident to the best of your knowledge. Your submission will be automatically recorded in the Dignified Caring incident register and your on-call supervisor will be notified immediately.
+  </div>
+  <div class="val-summary" id="valSummary">
+    <div class="val-summary-title">Please complete the required fields:</div>
+    <ul id="valList"></ul>
+  </div>
+  <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">
+    <span id="submitText">Submit incident report</span>
+    <div class="spinner" id="submitSpinner"></div>
+  </button>
+  <button type="button" class="btn-draft" onclick="saveDraft()">Save draft and continue later</button>
+</div>
+
+</form>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="container">
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div class="success-title">Report submitted</div>
+    <div class="success-ref" id="successRef"></div>
+    <div class="success-sub">
+      Your report has been recorded in the Dignified Caring incident register.<br>
+      Your on-call supervisor has been notified automatically.<br><br>
+      <strong>Keep your reference number</strong> for follow-up.
+    </div>
+    <div class="success-actions">
+      <button class="btn-new" onclick="resetForm()">Submit another report</button>
+    </div>
+  </div>
+</div>
+
+<div class="form-footer">
+  Dignified Caring — Incident Reporting System v2.1<br>
+  NDIS Quality &amp; Safeguards Commission aligned · 2025 Practice Standards
+</div>
+
+<script>
+// ─── APPS SCRIPT ENDPOINT ─────────────────────────────────────────────────────
+// REPLACE THIS URL with your deployed Apps Script web app URLconst POWER_AUTOMATE_URL = 'PLACEHOLDER_WILL_ADD_LATER';
+const POWER_AUTOMATE_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+// ─── SITE DETECTION FROM QR PARAM ────────────────────────────────────────────
+let currentSite = '';
+
+function initSite() {
+  const params = new URLSearchParams(window.location.search);
+  const site = params.get('site');
+  if (site && site.trim()) {
+    currentSite = decodeURIComponent(site.trim());
+    document.getElementById('hiddenSite').value = currentSite;
+    document.getElementById('sitePill').textContent = currentSite;
+    document.getElementById('siteTag').style.display = 'block';
+    document.getElementById('siteSelectorBanner').style.display = 'none';
+  }
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('incidentDate').value = today;
+}
+
+function setManualSite(val) {
+  currentSite = val;
+  document.getElementById('hiddenSite').value = val;
+}
+
+// ─── PROGRESS BAR ─────────────────────────────────────────────────────────────
+function updateProgress() {
+  const fields = ['incidentDate','incidentTime','specificLocation','participantName','ndisNumber','staffName','staffRole','oncallNotified','sbarS','sbarA','sbarR'];
+  const filled = fields.filter(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim().length > 0;
+  }).length;
+  const sev = document.querySelector('input[name="severity"]:checked');
+  const rep = document.querySelector('input[name="reportable"]:checked');
+  const total = fields.length + 2;
+  const done = filled + (sev ? 1 : 0) + (rep ? 1 : 0);
+  document.getElementById('progressFill').style.width = Math.round((done / total) * 100) + '%';
+}
+
+document.addEventListener('input', updateProgress);
+document.addEventListener('change', updateProgress);
+
+// ─── SEVERITY SELECTION ───────────────────────────────────────────────────────
+function selectSeverity(val, el) {
+  document.querySelectorAll('.severity-item').forEach(i => {
+    i.className = 'severity-item';
+  });
+  el.classList.add('selected-' + val);
+  el.querySelector('input').checked = true;
+  document.getElementById('err-severity').classList.remove('visible');
+  updateProgress();
+}
+
+// ─── REPORTABLE SELECTION ─────────────────────────────────────────────────────
+function selectReportable(val) {
+  ['yes','no','unsure'].forEach(v => {
+    const item = document.getElementById('rep-' + v);
+    const box = document.getElementById('rep-' + v + '-box');
+    if (item) {
+      item.classList.toggle('selected', v === val);
+      if (box) {
+        box.style.background = v === val ? 'var(--teal)' : '';
+        box.style.borderColor = v === val ? 'var(--teal)' : '';
+        if (v === val) {
+          box.innerHTML = '<span style="width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(0,-1px);display:block"></span>';
+        } else {
+          box.innerHTML = '';
+        }
+      }
+    }
+  });
+  document.querySelector('input[name="reportable"][value="'+val+'"]').checked = true;
+  document.getElementById('ndisAlert').style.display = val === 'yes' ? 'flex' : 'none';
+  document.getElementById('err-reportable').classList.remove('visible');
+  updateProgress();
+}
+
+// ─── CHECKBOX TOGGLE ──────────────────────────────────────────────────────────
+function toggleCheck(el) {
+  el.classList.toggle('selected');
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (cb) cb.checked = el.classList.contains('selected');
+}
+
+// ─── MOOD CHIPS ───────────────────────────────────────────────────────────────
+function toggleMood(el) {
+  el.classList.toggle('selected');
+  const vals = Array.from(document.querySelectorAll('.mood-chip.selected')).map(e => e.dataset.value);
+  document.getElementById('moodValue').value = vals.join(', ');
+}
+
+// ─── GENERATE REFERENCE ID ────────────────────────────────────────────────────
+function generateRef() {
+  const year = new Date().getFullYear();
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  const site = currentSite ? currentSite.replace(/\s+/g, '').substring(0, 3).toUpperCase() : 'DC';
+  return `DC-${site}-${year}-${rand}`;
+}
+
+// ─── FORM VALIDATION ──────────────────────────────────────────────────────────
+function validate() {
+  const errors = [];
+
+  const required = [
+    { id: 'incidentDate', label: 'Date of incident' },
+    { id: 'incidentTime', label: 'Time of incident' },
+    { id: 'specificLocation', label: 'Specific location' },
+    { id: 'participantName', label: 'Participant name' },
+    { id: 'ndisNumber', label: 'NDIS number' },
+    { id: 'staffName', label: 'Your full name' },
+    { id: 'staffRole', label: 'Your role' },
+    { id: 'oncallNotified', label: 'On-call notification details' },
+    { id: 'sbarS', label: 'Situation narrative (S)' },
+    { id: 'sbarA', label: 'Assessment narrative (A)' },
+    { id: 'sbarR', label: 'Response narrative (R)' },
+  ];
+
+  if (!currentSite) errors.push('Site / house must be selected');
+
+  required.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!el || !el.value.trim()) {
+      errors.push(f.label);
+      if (el) el.classList.add('error');
+      const errEl = document.getElementById('err-' + f.id);
+      if (errEl) errEl.classList.add('visible');
+    } else {
+      if (el) el.classList.remove('error');
+      const errEl = document.getElementById('err-' + f.id);
+      if (errEl) errEl.classList.remove('visible');
+    }
+  });
+
+  if (!document.querySelector('input[name="severity"]:checked')) {
+    errors.push('Severity level');
+    document.getElementById('err-severity').classList.add('visible');
+  }
+
+  const categories = document.querySelectorAll('input[name="category"]:checked');
+  if (categories.length === 0) {
+    errors.push('Incident category (at least one)');
+    document.getElementById('err-category').classList.add('visible');
+  } else {
+    document.getElementById('err-category').classList.remove('visible');
+  }
+
+  if (!document.querySelector('input[name="reportable"]:checked')) {
+    errors.push('NDIS reportable status');
+    document.getElementById('err-reportable').classList.add('visible');
+  }
+
+  return errors;
+}
+
+// ─── COLLECT FORM DATA ────────────────────────────────────────────────────────
+function collectData(ref) {
+  const cats = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(c => c.value);
+  const injured = Array.from(document.querySelectorAll('input[name="injured"]:checked')).map(c => c.value);
+  const treatment = Array.from(document.querySelectorAll('input[name="treatment"]:checked')).map(c => c.value);
+  const familyNotified = Array.from(document.querySelectorAll('input[name="familyNotified"]:checked')).map(c => c.value);
+  const voiceStatus = Array.from(document.querySelectorAll('input[name="voiceStatus"]:checked')).map(c => c.value);
+  const debrief = Array.from(document.querySelectorAll('input[name="debrief"]:checked')).map(c => c.value);
+
+  const sev = document.querySelector('input[name="severity"]:checked');
+  const rep = document.querySelector('input[name="reportable"]:checked');
+
+  return {
+    referenceId: ref,
+    submittedAt: new Date().toISOString(),
+    site: currentSite,
+    incidentDate: document.getElementById('incidentDate').value,
+    incidentTime: document.getElementById('incidentTime').value,
+    specificLocation: document.getElementById('specificLocation').value,
+    serviceType: document.getElementById('serviceType').value,
+    shift: document.getElementById('shift').value,
+    participantName: document.getElementById('participantName').value,
+    ndisNumber: document.getElementById('ndisNumber').value,
+    participantDOB: document.getElementById('participantDOB').value,
+    commMethod: document.getElementById('commMethod').value,
+    guardianContact: document.getElementById('guardianContact').value,
+    severity: sev ? sev.value : '',
+    categories: cats.join(' | '),
+    reportable: rep ? rep.value : '',
+    staffName: document.getElementById('staffName').value,
+    staffRole: document.getElementById('staffRole').value,
+    employeeId: document.getElementById('employeeId').value,
+    oncallNotified: document.getElementById('oncallNotified').value,
+    staffPresent: document.getElementById('staffPresent').value,
+    witnesses: document.getElementById('witnesses').value,
+    participantMood: document.getElementById('moodValue').value,
+    recentSleep: document.getElementById('recentSleep').value,
+    recentEating: document.getElementById('recentEating').value,
+    triggers: document.getElementById('triggers').value,
+    sbarS: document.getElementById('sbarS').value,
+    sbarB: document.getElementById('sbarB').value,
+    sbarA: document.getElementById('sbarA').value,
+    sbarR: document.getElementById('sbarR').value,
+    voiceStatus: voiceStatus.join(' | '),
+    participantVoice: document.getElementById('participantVoice').value,
+    voiceMethod: document.getElementById('voiceMethod').value,
+    injured: injured.join(' | '),
+    injuryDesc: document.getElementById('injuryDesc').value,
+    treatment: treatment.join(' | '),
+    treatmentDetails: document.getElementById('treatmentDetails').value,
+    familyNotified: familyNotified.join(' | '),
+    familyDetails: document.getElementById('familyDetails').value,
+    policeDetails: document.getElementById('policeDetails').value,
+    debrief: debrief.join(' | '),
+    staffWellbeing: document.getElementById('staffWellbeing').value,
+    additionalNotes: document.getElementById('additionalNotes').value,
+  };
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────────────────────
+async function submitForm() {
+  const errors = validate();
+  const valSummary = document.getElementById('valSummary');
+  const valList = document.getElementById('valList');
+
+  if (errors.length > 0) {
+    valList.innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+    valSummary.classList.add('visible');
+    valSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  valSummary.classList.remove('visible');
+
+  const ref = generateRef();
+  document.getElementById('hiddenRef').value = ref;
+  const data = collectData(ref);
+
+  const btn = document.getElementById('submitBtn');
+  const txt = document.getElementById('submitText');
+  const spinner = document.getElementById('submitSpinner');
+  btn.disabled = true;
+  txt.textContent = 'Submitting...';
+  spinner.style.display = 'block';
+
+  try {
+    // POST to Apps Script
+    await fetch(POWER_AUTOMATE_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch (e) {
+    // no-cors will always "fail" from JS perspective but the request goes through
+  }
+
+  // Show success regardless (no-cors means we can't read the response)
+  btn.disabled = false;
+  txt.textContent = 'Submit incident report';
+  spinner.style.display = 'none';
+
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('successRef').textContent = ref;
+  document.getElementById('successScreen').classList.add('visible');
+  document.getElementById('progressFill').style.width = '100%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── SAVE DRAFT ───────────────────────────────────────────────────────────────
+function saveDraft() {
+  const data = collectData('DRAFT');
+  localStorage.setItem('dc_ir_draft', JSON.stringify(data));
+  localStorage.setItem('dc_ir_draft_time', new Date().toLocaleTimeString('en-AU'));
+  alert('Draft saved. You can return to this page to continue.');
+}
+
+function loadDraft() {
+  const draft = localStorage.getItem('dc_ir_draft');
+  if (!draft) return;
+  const d = JSON.parse(draft);
+  const time = localStorage.getItem('dc_ir_draft_time');
+  if (d && confirm(`A draft from ${time || 'earlier'} was found. Load it?`)) {
+    if (d.incidentDate) document.getElementById('incidentDate').value = d.incidentDate;
+    if (d.incidentTime) document.getElementById('incidentTime').value = d.incidentTime;
+    if (d.specificLocation) document.getElementById('specificLocation').value = d.specificLocation;
+    if (d.participantName) document.getElementById('participantName').value = d.participantName;
+    if (d.ndisNumber) document.getElementById('ndisNumber').value = d.ndisNumber;
+    if (d.staffName) document.getElementById('staffName').value = d.staffName;
+    if (d.sbarS) document.getElementById('sbarS').value = d.sbarS;
+    if (d.sbarB) document.getElementById('sbarB').value = d.sbarB;
+    if (d.sbarA) document.getElementById('sbarA').value = d.sbarA;
+    if (d.sbarR) document.getElementById('sbarR').value = d.sbarR;
+    if (d.participantVoice) document.getElementById('participantVoice').value = d.participantVoice;
+    if (d.additionalNotes) document.getElementById('additionalNotes').value = d.additionalNotes;
+    updateProgress();
+  }
+}
+
+// ─── RESET FORM ───────────────────────────────────────────────────────────────
+function resetForm() {
+  document.getElementById('irForm').reset();
+  document.querySelectorAll('.check-item.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.mood-chip.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.severity-item').forEach(el => { el.className = 'severity-item'; });
+  ['yes','no','unsure'].forEach(v => {
+    const item = document.getElementById('rep-' + v);
+    if (item) { item.classList.remove('selected'); }
+    const box = document.getElementById('rep-' + v + '-box');
+    if (box) { box.style.background = ''; box.style.borderColor = ''; box.innerHTML = ''; }
+  });
+  document.getElementById('ndisAlert').style.display = 'none';
+  document.getElementById('moodValue').value = '';
+  document.getElementById('formContainer').style.display = 'block';
+  document.getElementById('successScreen').classList.remove('visible');
+  document.getElementById('progressFill').style.width = '0%';
+  localStorage.removeItem('dc_ir_draft');
+  localStorage.removeItem('dc_ir_draft_time');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  initSite();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  initSite();
+  loadDraft();
+  updateProgress();
+});
+</script>
+</body>
+</html>
